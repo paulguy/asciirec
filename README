@@ -1,0 +1,37 @@
+asciirec/asciiplay - terminal recording and playback
+
+Compiling
+
+gcc -o asciirec asciirec.c
+gcc -o asciiplay asciiplay.c
+
+Usage
+
+output | asciirec [args]
+asciiplay file
+
+Args
+
+-filename <filename>	- output filename
+-fps <fps>		- how many times per second to capture input.  
+			  More captures will mean smoother playback, but 
+			  might be too heavy for slower machines.
+-maxfs <bytes>		- max size in bytes per frame.  Set this higher 
+			  if your output is spitting out a LOT of text 
+			  very fast.  Side effect: your terminal might 
+			  not be able to output that much text for the 
+			  duration of a frame.
+
+File format
+
+4 bytes		ATXT idenfitication header	"ATXT"
+4 bytes		Revision			1, this version
+4 bytes		Max Frame size			32768 by default
+4 bytes		frame period in microseconds, 
+		rounded to the nearest 1000	1000/15 by default
+		Frames ...
+
+Frame format
+
+4 bytes		frame size in bytes
+		Data ...
